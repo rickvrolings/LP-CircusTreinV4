@@ -5,7 +5,7 @@ using static LP_CircusTreinV4.Models.Enums;
 
 namespace LP_CircusTreinV4.Models
 {
-    class Animal
+    public class Animal
     { 
         public Diet Diet { get; }
         public Size Size { get; }

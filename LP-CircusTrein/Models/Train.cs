@@ -7,7 +7,7 @@ using static LP_CircusTreinV4.Models.Enums;
 
 namespace LP_CircusTreinV4
 {
-    class Train
+    public class Train
     {
         public List<Wagon> Wagons { get; private set; }
 
@@ -38,7 +38,7 @@ namespace LP_CircusTreinV4
 
         public Wagon GetAvailableWagon(Animal potentialAnimal)
         {
-            foreach (Wagon wagon in Wagons)
+            foreach (Wagon wagon in Wagons) 
             {
                 if (wagon.CanBePlaced(potentialAnimal) && potentialAnimal.Diet != Diet.Carnivore)
                 {
@@ -53,6 +53,13 @@ namespace LP_CircusTreinV4
             Wagon newWagon = new Wagon();
             Wagons.Add(newWagon);
             return newWagon;
+        }
+
+        //Functions used for unit testing
+
+        public void DirectlyAddWagon(Wagon wagon)
+        {
+            Wagons.Add(wagon);
         }
 
     }

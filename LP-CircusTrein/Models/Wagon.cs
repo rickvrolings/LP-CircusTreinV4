@@ -6,10 +6,11 @@ using static LP_CircusTreinV4.Models.Enums;
 
 namespace LP_CircusTreinV4.Models
 {
-    class Wagon
+    public class Wagon
     {
         static private int _wagonCount = 0;
         private int _wagonIndex;
+
         const int maxCapicity = 10;
         public List<Animal> SeatedAnimals { get; private set; }
 
@@ -18,14 +19,6 @@ namespace LP_CircusTreinV4.Models
             _wagonCount++;
             _wagonIndex = _wagonCount;
             this.SeatedAnimals = new List<Animal>();
-        }
-
-        public Wagon(Animal animal)
-        {
-            _wagonCount++;
-            _wagonIndex = _wagonCount;
-            this.SeatedAnimals = new List<Animal>();
-            this.PlaceAnimal(animal);
         }
 
         public void PlaceAnimal(Animal animal)

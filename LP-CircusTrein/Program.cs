@@ -7,14 +7,10 @@ namespace LP_CircusTreinV4
 {
     class Program
     {
-        static List<Animal> que;
         static void Main(string[] args)
         {
-            que = FillerData();
             Train train = new Train();
-            PrintAnimals(train.SortAnimals(que));
-            Console.WriteLine(" ");
-            train.CorrectlyPlaceAnimals(que);
+            train.CorrectlyPlaceAnimals(FillerDataOne());
             PrintWagonsFromTrain(train);
 
             Console.ReadKey();
@@ -30,8 +26,7 @@ namespace LP_CircusTreinV4
             foreach(Wagon wagon in wagons)
             {
                 Console.WriteLine(wagon);
-                PrintAnimals(wagon.SeatedAnimals);
-                Console.WriteLine(" ");
+                PrintAnimals(wagon.SeatedAnimals);               
             }
         }
         static void PrintAnimals(List<Animal> animals)
@@ -40,8 +35,9 @@ namespace LP_CircusTreinV4
             {
                 Console.WriteLine(animal);
             }
+            Console.WriteLine(" ");
         }
-        static List<Animal> FillerData()
+        static List<Animal> FillerDataOne()
         {
             List<Animal> returnData = new List<Animal>()
             {
@@ -54,6 +50,17 @@ namespace LP_CircusTreinV4
                 new Animal(Diet.Carnivore, Size.Large)
             };
             return returnData;
+        }
+
+        static List<Animal> FillerDataTwo()
+        {
+            return new List<Animal>()
+            {
+                new Animal(Diet.Herbivore, Size.Small),
+                new Animal(Diet.Herbivore, Size.Large),
+                new Animal(Diet.Carnivore, Size.Small),
+                new Animal(Diet.Carnivore, Size.Large)
+            };
         }
     }
 }
