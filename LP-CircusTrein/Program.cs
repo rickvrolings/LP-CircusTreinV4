@@ -15,13 +15,13 @@ namespace LP_CircusTreinV4
 
             Console.ReadKey();
         }
-        
+            
         static void PrintWagonsFromTrain(Train train)
         {
             PrintWagons(train.Wagons);
         }
 
-        static void PrintWagons(List<Wagon> wagons)
+        static void PrintWagons(IEnumerable<Wagon> wagons)
         {
             foreach(Wagon wagon in wagons)
             {
@@ -29,9 +29,9 @@ namespace LP_CircusTreinV4
                 PrintAnimals(wagon.SeatedAnimals);               
             }
         }
-        static void PrintAnimals(List<Animal> animals)
+        static void PrintAnimals(IEnumerable<Animal> animals)
         {
-            foreach(Animal animal in animals)
+            foreach(var animal in animals)
             {
                 Console.WriteLine(animal);
             }

@@ -8,24 +8,37 @@ namespace LP_CircusTreinV4.Models
 {
     public class Wagon
     {
-        static private int _wagonCount = 0;
-        private int _wagonIndex;
+        static private int wagonCount = 0;
+        private int wagonIndex;
 
-        const int maxCapicity = 10;
-        public List<Animal> SeatedAnimals { get; private set; }
+        const int _maxCapacity = 10;
+        private List<Animal> _seatedAnimals;
+
+        private Animal biggestCarnivore = null;// needed for UpdateBiggestAnimals function
+        private Animal biggestHerbivore = null;//
+
+        public IEnumerable<Animal> SeatedAnimals  //Is dit een veilige manier om onder de public list vandaan te komen?
+        { 
+            get 
+            { 
+                return SeatedAnimalsToIEnumarable(); 
+            } 
+        }
 
         public Wagon()
         {
-            _wagonCount++;
-            _wagonIndex = _wagonCount;
-            this.SeatedAnimals = new List<Animal>();
+            wagonCount++;
+            wagonIndex = wagonCount;
+            _seatedAnimals = new List<Animal>();
         }
 
         public void PlaceAnimal(Animal animal)
         {
             if (this.CanBePlaced(animal))
             {
-                SeatedAnimals.Add(animal);
+                _seatedAnimals.Add(animal);
+                UpdateBiggestAnimals();
+                animal.Placed = true; 
             }
         }
 
@@ -34,37 +47,66 @@ namespace LP_CircusTreinV4.Models
             return IsSpaceAvailable(potentialAnimal) && IsSafe(potentialAnimal);
         }
 
-        private bool IsSafe(Animal potentialAnimal)
+        private bool IsSafe(Animal inputAnimal) //it's not possible for two carnivores to be in the same wagon
         {
-            int carinvoreSize = 0;
-            foreach(Animal animal in SeatedAnimals)
+            if (inputAnimal.Diet == Diet.Herbivore)
             {
-                if(animal.Diet == Diet.Carnivore && (int)animal.Size > carinvoreSize)
+                return biggestCarnivore == null || (int)inputAnimal.Size > (int)biggestCarnivore.Size;
+            }
+            else //if(inputAnimal.Diet == Diet.Carnivore)
+            {
+                return (biggestHerbivore == null || (int)inputAnimal.Size < (int)biggestHerbivore.Size)
+                        && biggestCarnivore == null;
+            }
+        }
+
+        private void UpdateBiggestAnimals()
+        {
+            foreach (Animal animal in _seatedAnimals)
+            {
+                CompareSizeFromInputAndBiggest(animal);                
+            }
+        }
+
+        private void CompareSizeFromInputAndBiggest(Animal animal)
+        {
+            if (animal.Diet == Diet.Carnivore)
+            {
+                biggestCarnivore = animal;
+            }
+            else
+            {
+                if (biggestHerbivore == null || (int)biggestHerbivore.Size < (int)animal.Size)
                 {
-                    carinvoreSize = (int)animal.Size;
+                    biggestHerbivore = animal;
                 }
             }
-            return (int)potentialAnimal.Size > carinvoreSize;
         }
 
         private bool IsSpaceAvailable(Animal animal)
         {
-            return CalSeatedSize() + (int)animal.Size <= maxCapicity;
+            return CalculateSeatedSize() + (int)animal.Size <= _maxCapacity;
         }
 
-        private int CalSeatedSize()
+        public int CalculateSeatedSize()
         {
-            int CumulativeSize = 0;
-            foreach (Animal animal in SeatedAnimals)
+            int cumulativeSize = 0;
+            foreach (Animal animal in _seatedAnimals)
             {
-                CumulativeSize += (int)animal.Size;
+                cumulativeSize += (int)animal.Size;
             }
-            return CumulativeSize;
+            return cumulativeSize;
+        }
+
+        private IEnumerable<Animal> SeatedAnimalsToIEnumarable()
+        {
+            IEnumerable<Animal> animals = _seatedAnimals;
+            return animals;
         }
 
         public override string ToString()
         {
-            return "Wagon: " + _wagonIndex.ToString();
+            return "Wagon: " + wagonIndex.ToString();
         }
 
     }

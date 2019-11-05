@@ -9,38 +9,43 @@ namespace LP_CircusTreinV4
 {
     public class Train
     {
-        public List<Wagon> Wagons { get; private set; }
-
+        private List<Wagon> _wagons;
+        public IEnumerable<Wagon> Wagons //Is dit een veilige manier om onder de public list vandaan te komen?
+        {
+            get
+            {
+                return WagonsToIEnumerable();
+            }
+        }
         public Train()
         {
-            Wagons = new List<Wagon>();
+            _wagons = new List<Wagon>();
         }
 
         public void CorrectlyPlaceAnimals(List<Animal> inputAnimals)
         {
-            List<Animal> sortedAnimals = SortAnimals(inputAnimals);
+            List<Animal> sortedAnimals = SortAnimals(inputAnimals);//Kan ik er niet van uitgaan dat Carnivore altijd gesorteerd zijn
             PlaceInWagons(sortedAnimals);
         }
 
-        public List<Animal> SortAnimals(List<Animal> animals)
+        private List<Animal> SortAnimals(List<Animal> animals)
         {
             return animals = animals.OrderBy(a => a.Diet).ThenBy(a => a.Size).ToList();
         }
 
-        public void PlaceInWagons(List<Animal> receivedAnimals)
+        private void PlaceInWagons(List<Animal> receivedAnimals)
         {
             foreach(Animal animal in receivedAnimals)
             {
-                Wagon availableWagon = GetAvailableWagon(animal);
-                availableWagon.PlaceAnimal(animal);
+                GetAvailableWagon(animal).PlaceAnimal(animal);
             }
         }
 
-        public Wagon GetAvailableWagon(Animal potentialAnimal)
+        private Wagon GetAvailableWagon(Animal potentialAnimal)
         {
-            foreach (Wagon wagon in Wagons) 
+            foreach (Wagon wagon in _wagons) 
             {
-                if (wagon.CanBePlaced(potentialAnimal) && potentialAnimal.Diet != Diet.Carnivore)
+                if (wagon.CanBePlaced(potentialAnimal))
                 {
                     return wagon;
                 }
@@ -48,19 +53,17 @@ namespace LP_CircusTreinV4
             return CreateNewWagonAndAddToList();
         }
 
-        public Wagon CreateNewWagonAndAddToList()
+        private IEnumerable<Wagon> WagonsToIEnumerable()
+        {
+            IEnumerable<Wagon> wagons = _wagons;
+            return wagons;
+        }
+
+        private Wagon CreateNewWagonAndAddToList()
         {
             Wagon newWagon = new Wagon();
-            Wagons.Add(newWagon);
+            _wagons.Add(newWagon);
             return newWagon;
         }
-
-        //Functions used for unit testing
-
-        public void DirectlyAddWagon(Wagon wagon)
-        {
-            Wagons.Add(wagon);
-        }
-
     }
 }
