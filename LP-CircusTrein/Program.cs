@@ -1,7 +1,6 @@
 ﻿using LP_CircusTreinV4.Models;
 using System;
 using System.Collections.Generic;
-using static LP_CircusTreinV4.Models.Enums;
 
 namespace LP_CircusTreinV4
 {

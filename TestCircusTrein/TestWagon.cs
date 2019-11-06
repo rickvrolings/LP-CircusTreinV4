@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using LP_CircusTreinV4.Models;
-using static LP_CircusTreinV4.Models.Enums;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -124,9 +123,9 @@ namespace Tests
             //Arrange
             List<Animal> animals = new List<Animal>()
             {
-                new Animal(Diet.Carnivore, Size.Small), //size 1
-                new Animal(Diet.Herbivore, Size.Medium),//size 3
-                new Animal(Diet.Herbivore, Size.Large)  //size 5
+                new Animal(Diet.Carnivore, Size.Small), 
+                new Animal(Diet.Herbivore, Size.Medium),
+                new Animal(Diet.Herbivore, Size.Large)  
             };
 
             int expectedResult = 0;

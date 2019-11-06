@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using LP_CircusTreinV4.Models;
-using static LP_CircusTreinV4.Models.Enums;
 
 namespace Tests
 {
@@ -27,12 +26,5 @@ namespace Tests
                 Assert.AreEqual(animal.Size, size);
             });
         }
-
-        //[Test]
-        //public void CorrectToString()
-        //{
-        //    string correctFormat = animal.Diet.ToString() + ", " + animal.Size.ToString();
-        //    Assert.AreEqual(correctFormat, animal.ToString());
-        //}
     }
 }

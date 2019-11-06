@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using LP_CircusTreinV4.Models;
-using static LP_CircusTreinV4.Models.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using LP_CircusTreinV4;
@@ -10,8 +9,6 @@ namespace Tests
     public class TestTrain
     {
         List<Animal> animals = new List<Animal>();
-
-        //TODO More tests? More data? Do i have to manually add data or is there a api or dataset somewhere?
 
         [SetUp]
         public void Setup()
