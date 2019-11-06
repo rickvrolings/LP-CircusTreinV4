@@ -22,9 +22,11 @@ namespace LP_CircusTreinV4
 
         static void PrintWagons(IEnumerable<Wagon> wagons)
         {
+            int count = 0;
             foreach(Wagon wagon in wagons)
             {
-                Console.WriteLine(wagon);
+                count++;
+                Console.WriteLine(wagon.ToString() + count.ToString());
                 PrintAnimals(wagon.SeatedAnimals);               
             }
         }

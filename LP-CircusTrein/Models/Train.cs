@@ -22,7 +22,7 @@ namespace LP_CircusTreinV4
             _wagons = new List<Wagon>();
         }
 
-        public void CorrectlyPlaceAnimals(List<Animal> inputAnimals)
+        public void CorrectlyPlaceAnimals(IEnumerable<Animal> inputAnimals)
         {
             foreach (Animal animal in inputAnimals.OrderBy(a => a.Diet).ThenBy(a => a.Size).ToList())
             {

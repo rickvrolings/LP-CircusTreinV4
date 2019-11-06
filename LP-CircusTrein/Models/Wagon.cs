@@ -7,8 +7,6 @@ namespace LP_CircusTreinV4.Models
 {
     public class Wagon
     {
-        private int wagonIndex;
-
         const int _maxCapacity = 10;
         private List<Animal> _seatedAnimals;
 
@@ -88,7 +86,7 @@ namespace LP_CircusTreinV4.Models
 
         public override string ToString()
         {
-            return "Wagon: " + wagonIndex.ToString();
+            return "Wagon: ";
         }
 
     }
