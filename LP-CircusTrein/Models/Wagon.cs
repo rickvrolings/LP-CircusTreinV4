@@ -58,6 +58,10 @@ namespace LP_CircusTreinV4.Models
                 return (biggestHerbivore == null || (int)inputAnimal.Size < (int)biggestHerbivore.Size)
                         && biggestCarnivore == null;
             }
+        //    else
+        //    {
+        //        return false;
+        //    }
         }
 
         private void UpdateBiggestAnimals()
